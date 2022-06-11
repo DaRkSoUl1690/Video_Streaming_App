@@ -6,7 +6,7 @@ public class Model {
     public Model() {
     }
 
-    public String getTitle() {
+    public  String getTitle() {
         return title;
     }
 
