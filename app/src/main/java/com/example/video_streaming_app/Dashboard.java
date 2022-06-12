@@ -114,7 +114,8 @@ public class Dashboard extends AppCompatActivity {
             finish();
         }
         if (item.getItemId() == R.id.manage_profile) {
-
+            startActivity(new Intent(this, ManageProfile.class));
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
