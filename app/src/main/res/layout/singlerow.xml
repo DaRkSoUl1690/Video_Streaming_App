@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="290dp"
+    android:layout_height="310dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="4dp">
@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Video Title"
+            android:textColor="#000"
+            android:id="@+id/vtitle"/>
+
         <com.google.android.exoplayer2.ui.PlayerView
             android:layout_width="match_parent"
             android:layout_height="230dp"
@@ -19,13 +27,24 @@
             app:use_controller="true"
             app:resize_mode="fill"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Video Title"
-            android:textColor="#000"
-            android:id="@+id/vtitle"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/like_btn"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_baseline_favorite_border_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Likes"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:id="@+id/like_text"/>
+        </LinearLayout>
 
     </LinearLayout>
 

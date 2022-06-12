@@ -13,16 +13,25 @@ import android.view.ViewGroup;
 import com.example.video_streaming_app.databinding.ActivityDashboardBinding;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Dashboard extends AppCompatActivity {
 
     ActivityDashboardBinding binding;
+    DatabaseReference likeReference;
+    boolean testClick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        likeReference = FirebaseDatabase.getInstance().getReference("likes");
 
        binding.addVideo.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),addvideo.class)));
 
@@ -38,6 +47,44 @@ public class Dashboard extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull Model model) {
                holder.prepareExoPlayer(getApplication(), model.getTitle(), model.getVurl());
+
+               FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                assert firebaseUser != null;
+                String userId = firebaseUser.getUid();
+                String postKey = getRef(position).getKey();
+
+                holder.getLikeButtonStatus(postKey,userId);
+
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        testClick = true;
+                        likeReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                              if(testClick)
+                              {
+                                  if(snapshot.child(postKey).hasChild(userId))
+                                  {
+                                      likeReference.child(postKey).removeValue();
+                                      testClick = false;
+                                  }
+                                  else {
+                                      likeReference.child(postKey).child(userId).setValue(true);
+                                      testClick = false;
+                                  }
+                              }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
+
             }
 
             @NonNull
