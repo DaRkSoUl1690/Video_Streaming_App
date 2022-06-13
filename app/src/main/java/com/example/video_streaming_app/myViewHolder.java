@@ -24,14 +24,14 @@ public class myViewHolder extends RecyclerView.ViewHolder {
     PlayerView playerView;
     SimpleExoPlayer simpleExoPlayer;
     TextView textView, like_text;
-    ImageView imageView;
+    ImageView imageView,comment;
     DatabaseReference likeReference;
 
     public myViewHolder(@NonNull View itemView) {
         super(itemView);
         textView = (TextView) itemView.findViewById(R.id.vtitle);
         playerView = itemView.findViewById(R.id.exoplayerview);
-
+        comment = itemView.findViewById(R.id.comment_btn);
         imageView = itemView.findViewById(R.id.like_btn);
         like_text = itemView.findViewById(R.id.like_text);
     }

@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Video_Streaming_App"
         tools:targetApi="31">
         <activity
+            android:name=".CommentPanel"
+            android:exported="false" />
+        <activity
             android:name=".ManageProfile"
             android:exported="false" />
         <activity

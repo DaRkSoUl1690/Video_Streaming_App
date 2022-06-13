@@ -54,8 +54,8 @@ public class Dashboard extends AppCompatActivity {
 
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 assert firebaseUser != null;
-                String userId = firebaseUser.getUid();
-                String postKey = getRef(position).getKey();
+                final String userId = firebaseUser.getUid();
+                final String postKey = getRef(position).getKey();
 
                 holder.getLikeButtonStatus(postKey, userId);
 
@@ -86,6 +86,14 @@ public class Dashboard extends AppCompatActivity {
                     }
                 });
 
+                holder.comment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), CommentPanel.class);
+                        intent.putExtra("postkey", postKey);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull
